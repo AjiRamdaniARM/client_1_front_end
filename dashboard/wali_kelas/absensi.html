@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>Rekap Absensi - Wali Kelas</title>
+    <link rel="stylesheet" href="../css/loading.css">
+    <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
+    <link href="css/styles.css" rel="stylesheet" />
+    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .card {
+            margin-top: 20px;
+        }
+        .table th {
+            background-color: #007bff;
+            color: white;
+        }
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .pagination button {
+            margin: 0 5px;
+            padding: 5px 10px;
+            border: none;
+            background-color: #007bff;
+            color: white;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        .pagination button.disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+        .mt-neg-2 {
+            margin-top: -20px;
+        }
+        .filter-row {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+            align-items: center;
+            justify-content: end;
+        }
+    </style>
+</head>
+<body class="sb-nav-fixed">
+    <div id="preloader">
+        <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+
+    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+        <a class="navbar-brand ps-3" href="#">Wali Kelas</a>
+        <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle"><i class="fas fa-bars"></i></button>
+        <ul class="navbar-nav ms-auto me-3 me-lg-4">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown"
+                    aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                    <li><a class="dropdown-item" href="#">Settings</a></li>
+                    <li><a class="dropdown-item" href="#">Logout</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+
+    <div id="layoutSidenav">
+        <div id="layoutSidenav_nav">
+            <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+                <div class="sb-sidenav-menu">
+                    <div class="nav">
+                        <a class="nav-link" href="index.html"><div class="sb-nav-link-icon"><i class="fas fa-chart-line"></i></div>Dashboard</a>
+                        <a class="nav-link" href="absensi.html"><div class="sb-nav-link-icon"><i class="fas fa-user-check"></i></div>Absensi</a>
+                        <a class="nav-link" href="catatan-raport.html"><div class="sb-nav-link-icon"><i class="fas fa-book"></i></div>Catatan Rapot</a>
+                        <a class="nav-link" href="input-nilai.html"><div class="sb-nav-link-icon"><i class="fas fa-pen"></i></div>Nilai</a>
+                        <a class="nav-link" href="prestasi.html"><div class="sb-nav-link-icon"><i class="fas fa-trophy"></i></div>Prestasi</a>
+                        <a class="nav-link" href="ekstrakurikuler.html"><div class="sb-nav-link-icon"><i class="fas fa-running"></i></div>Ek strakurikuler</a>
+                        <a class="nav-link" href="raport.html">
+                        <div class="sb-nav-link-icon"><i class="fas fa-file-alt"></i></div>Raport
+                        </a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+
+        <div id="layoutSidenav_content">
+            <main>
+                <div class="container-fluid px-4">
+                    <h1 class="mt-neg-2">Rekap Absensi Siswa</h1>
+                    <p><strong>Bulan dan Tahun:</strong> <span id="bulanTahun"></span></p>
+
+                    <div class="card">
+                        <div class="card-body">
+                            <form id="absensiForm">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Nama Siswa</th>
+                                            <th>Hadir</th>
+                                            <th>Sakit</th>
+                                            <th>Alfa</th>
+                                            <th>Izin</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="siswaTableBody"></tbody>
+                                </table>
+                                <div class="pagination" id="pagination"></div>
+                                <button type="submit" class="btn btn-primary mt-3">Simpan Absensi</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">Preview Absensi yang Disimpan</div>
+                        <div class="card-body">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Nama Siswa</th>
+                                        <th>Hadir</th>
+                                        <th>Sakit</th>
+                                        <th>Alfa</th>
+                                        <th>Izin</th>
+                                        <th>Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="rekapTableBody"></tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Rekap Absensi Guru -->
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <span>Rekap Absensi Guru</span>
+                            <div class="filter-row">
+                                <select id="filterBulanGuru" class="form-select">
+                                    <option value="Januari">Januari</option>
+                                    <option value="Februari">Februari</option>
+                                    <option value="Maret">Maret</option>
+                                    <option value="April">April</option>
+                                    <option value="Mei">Mei</option>
+                                    <option value="Juni">Juni</option>
+                                    <option value="Juli">Juli</option>
+                                    <option value="Agustus">Agustus</option>
+                                    <option value="September">September</option>
+                                    <option value="Oktober">Oktober</option>
+                                    <option value="November">November</option>
+                                    <option value="Desember">Desember</option>
+                                </select>
+                                <select id="filterTahunGuru" class="form-select">
+                                    <option>2023</option>
+                                    <option selected>2024</option>
+                                    <option>2025</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Nama Guru</th>
+                                        <th>Hadir</th>
+                                        <th>Sakit</th>
+                                        <th>Alfa</th>
+                                        <th>Izin</th>
+                                        <th>Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td>Dita</td><td>22</td><td>1</td><td>0</td><td>0</td><td><i class="fas fa-pencil-alt text-primary"></i></td></tr>
+                                    <tr><td>Dwi</td><td>20</td><td>2</td><td>1</td><td>1</td><td><i class="fas fa-pencil-alt text-primary"></i></td></tr>
+                                    <tr><td>Fadil</td><td>21</td><td>1</td><td>0</td><td>0</td><td><i class="fas fa-pencil-alt text-primary"></i></td></tr>
+                                    <tr><td>Gilang</td><td>19</td><td>0</td><td>2</td><td>1</td><td><i class="fas fa-pencil-alt text-primary"></i></td></tr>
+                                    <tr><td>Izat</td><td>22</td><td>1</td><td>0</td><td>0</td><td><i class="fas fa-pencil-alt text-primary"></i></td></tr>
+                                    <tr><td>Kiandra</td><td>20</td><td>2</td><td>1</td><td>1</td><td><i class="fas fa-pencil-alt text-primary"></i></td></tr>
+                                    <tr><td>Manisa</td><td>21</td><td>1</td><td>0</td><td>0</td><td><i class="fas fa-pencil-alt text-primary"></i></td></tr>
+                                    <tr><td>Rina</td><td>22</td><td>1</td><td>0</td><td>0</td><td><i class="fas fa-pencil-alt text-primary"></i></td></tr>
+                                    <tr><td>Sari</td><td>20</td><td>2</td><td>1</td><td>1</td><td><i class="fas fa-pencil-alt text-primary"></i></td></tr>
+                                    <tr><td>Tina</td><td>19</td><td>1</td><td>0</td><td>0</td><td><i class="fas fa-pencil-alt text-primary"></i></td></tr>
+                                    <tr><td>Umar</td><td>21</td><td>0</td><td>1</td><td>1</td><td><i class="fas fa-pencil-alt text-primary"></i></td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Rekap Absensi Siswa per Bulan -->
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <span>Rekap Absensi Siswa</span>
+                            <div class="filter-row">
+                                <select id="filterBulan" class="form-select">
+                                    <option value="Januari">Januari</option>
+                                    <option value="Februari">Februari</option>
+                                    <option value="Maret">Maret</option>
+                                    <option value="April">April</option>
+                                    <option value="Mei">Mei</option>
+                                    <option value="Juni">Juni</option>
+                                    <option value="Juli">Juli</option>
+                                    <option value="Agustus">Agustus</option>
+                                    <option value="September">September</option>
+                                    <option value="Oktober">Oktober</option>
+                                    <option value="November">November</option>
+                                    <option value="Desember">Desember</option>
+                                </select>
+                                <select id="filterTahun" class="form-select">
+                                    <option>2023</option>
+                                    <option selected>2024</option>
+                                    <option>2025</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Nama Siswa</th>
+                                        <th>Hadir</th>
+                                        <th>Sakit</th>
+                                        <th>Alfa</th>
+                                        <th>Izin</th>
+                                        <th>Aksi</th>
+                                    </ </tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td>Andi</td><td>22</td><td>1</td><td>0</td><td>0</td><td><i class="fas fa-pencil-alt text-primary"></i></td></tr>
+                                    <tr><td>Budi</td><td>20</td><td>2</td><td>1</td><td>1</td><td><i class="fas fa-pencil-alt text-primary"></i></td></tr>
+                                    <tr><td>Citra</td><td>21</td><td>1</td><td>1</td><td>0</td><td><i class="fas fa-pencil-alt text-primary"></i></td></tr>
+                                    <tr><td>Dewi</td><td>19</td><td>0</td><td>2</td><td>1</td><td><i class="fas fa-pencil-alt text-primary"></i></td></tr>
+                                    <tr><td>Dita</td><td>22</td><td>1</td><td>0</td><td>0</td><td><i class="fas fa-pencil-alt text-primary"></i></td></tr>
+                                    <tr><td>Dwi</td><td>20</td><td>2</td><td>1</td><td>1</td><td><i class="fas fa-pencil-alt text-primary"></i></td></tr>
+                                    <tr><td>Fadil</td><td>21</td><td>1</td><td>0</td><td>0</td><td><i class="fas fa-pencil-alt text-primary"></i></td></tr>
+                                    <tr><td>Gilang</td><td>19</td><td>0</td><td>2</td><td>1</td><td><i class="fas fa-pencil-alt text-primary"></i></td></tr>
+                                    <tr><td>Izat</td><td>22</td><td>1</td><td>0</td><td>0</td><td><i class="fas fa-pencil-alt text-primary"></i></td></tr>
+                                    <tr><td>Kiandra</td><td>20</td><td>2</td><td>1</td><td>1</td><td><i class="fas fa-pencil-alt text-primary"></i></td></tr>
+                                    <tr><td>Manisa</td><td>21</td><td>1</td><td>0</td><td>0</td><td><i class="fas fa-pencil-alt text-primary"></i></td></tr>
+                                    <tr><td>Rina</td><td>22</td><td>1</td><td>0</td><td>0</td><td><i class="fas fa-pencil-alt text-primary"></i></td></tr>
+                                    <tr><td>Sari</td><td>20</td><td>2</td><td>1</td><td>1</td><td><i class="fas fa-pencil-alt text-primary"></i></td></tr>
+                                    <tr><td>Tina</td><td>19</td><td>1</td><td>0</td><td>0</td><td><i class="fas fa-pencil-alt text-primary"></i></td></tr>
+                                    <tr><td>Umar</td><td>21</td><td>0</td><td>1</td><td>1</td><td><i class="fas fa-pencil-alt text-primary"></i></td></tr>
+                                    <tr><td>Vina</td><td>22</td><td>1</td><td>0</td><td>0</td><td><i class="fas fa-pencil-alt text-primary"></i></td></tr>
+                                    <tr><td>Wira</td><td>20</td><td>2</td><td>1</td><td>1</td><td><i class="fas fa-pencil-alt text-primary"></i></td></tr>
+                                    <tr><td>Xena</td><td>21</td><td>1</td><td>0</td><td>0</td><td><i class="fas fa-pencil-alt text-primary"></i></td></tr>
+                                    <tr><td>Yani</td><td>22</td><td>1</td><td>0</td><td>0</td><td><i class="fas fa-pencil-alt text-primary"></i></td></tr>
+                                    <tr><td>Zara</td><td> 22</td><td>1</td><td>0</td><td>0</td><td><i class="fas fa-pencil-alt text-primary"></i></td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script>
+        const siswaData = ['Andi', 'Budi', 'Citra', 'Dewi', 'Dita', 'Dwi', 'Fadil', 'Gilang', 'Izat', 'Kiandra', 'Manisa', 'Rina', 'Sari', 'Tina', 'Umar', 'Vina', 'Wira', 'Xena', 'Yani', 'Zara', 'Alya', 'Bima', 'Cleo', 'Dara', 'Eli', 'Fina', 'Gita', 'Hana', 'Ira', 'Jaya', 'Kira', 'Lara'];
+        const rowsPerPage = 5;
+        let currentPage = 1;
+        let savedAbsensi = {};
+
+        document.getElementById('bulanTahun').textContent = new Date().toLocaleString('id-ID', {
+            month: 'long',
+            year: 'numeric'
+        });
+
+        function renderTable() {
+            const tbody = document.getElementById('siswaTableBody');
+            tbody.innerHTML = '';
+            const start = (currentPage - 1) * rowsPerPage;
+            const end = start + rowsPerPage;
+            const currentData = siswaData.slice(start, end);
+
+            currentData.forEach(nama => {
+                const key = nama.toLowerCase();
+                const data = savedAbsensi[key] || { hadir: '', sakit: '', alfa: '', izin: '' };
+                const row = `
+                    <tr>
+                        <td>${nama}</td>
+                        <td><input type="number" class="form-control" name="hadir_${key}" value="${data.hadir}"></td>
+                        <td><input type="number" class="form-control" name="sakit_${key}" value="${data.sakit}"></td>
+                        <td><input type="number" class="form-control" name="alfa_${key}" value="${data.alfa}"></td>
+                        <td><input type="number" class="form-control" name="izin_${key}" value="${data.izin}"></td>
+                    </tr>
+                `;
+                tbody.innerHTML += row;
+            });
+        }
+
+        function renderPagination() {
+            const pageCount = Math.ceil(siswaData.length / rowsPerPage);
+            const pagination = document.getElementById('pagination');
+            pagination.innerHTML = '';
+            for (let i = 1; i <= pageCount; i++) {
+                const btn = document.createElement('button');
+                btn.textContent = i;
+                btn.className = i === currentPage ? 'disabled' : '';
+                btn.onclick = () => {
+                    currentPage = i;
+                    renderTable();
+                    renderPagination();
+                };
+                pagination.appendChild(btn);
+            }
+        }
+
+        document.getElementById('absensiForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const inputs = document.querySelectorAll('#siswaTableBody input');
+            inputs.forEach(input => {
+                const [type, nama] = input.name.split('_');
+                if (!savedAbsensi[nama]) savedAbsensi[nama] = { hadir: '', sakit: '', alfa: '', izin: '' };
+                savedAbsensi[nama][type] = input.value;
+            });
+            alert('Data absensi berhasil disimpan!');
+            renderRekapTable();
+        });
+
+        function renderRekapTable() {
+            const tbody = document.getElementById('rekapTableBody');
+            tbody.innerHTML = '';
+            Object.entries(savedAbsensi).forEach(([nama, data]) => {
+                const row = `
+                    <tr>
+                        <td>${capitalize(nama)}</td>
+                        <td>${data.hadir}</td>
+                        <td>${data.sakit}</td>
+                        <td>${data.alfa}</td>
+                        <td>${data.izin}</td>
+                        <td><i class="fas fa-pencil-alt text-primary"></i></td>
+                    </tr>
+                `;
+                tbody.innerHTML += row;
+            });
+        }
+
+        function capitalize(str) {
+            return str.charAt(0).toUpperCase() + str.slice(1);
+        }
+
+        renderTable();
+        renderPagination();
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

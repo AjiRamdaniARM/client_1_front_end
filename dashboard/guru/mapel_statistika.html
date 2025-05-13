@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>Input Nilai - Guru Kelas</title>
+    <link rel="stylesheet" href="../css/loading.css" />
+    <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
+    <link href="css/styles.css" rel="stylesheet" />
+    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    <style>
+        .card-header h2 {
+            margin: 0;
+            font-size: 1.25rem;
+        }
+        .table th {
+            background-color: #f8f9fa;
+        }
+        .card {
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+        .metric {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        #preloader {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+        .table th, .table td {
+            text-align: center;
+            vertical-align: middle;
+        }
+    </style>
+</head>
+<body class="sb-nav-fixed">
+
+<!-- Preloader -->
+<div id="preloader">
+    <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+</div>
+
+<!-- Navbar -->
+<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+    <a class="navbar-brand ps-3" href="index.html">Guru Kelas</a>
+    <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button>
+    <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+    </form>
+    <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown"><i class="fas fa-user fa-fw"></i></a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" href="#">Settings</a></li>
+                <li><a class="dropdown-item" href="#">Activity Log</a></li>
+                <li><hr class="dropdown-divider" /></li>
+                <li><a class="dropdown-item" href="#">Logout</a></li>
+            </ul>
+        </li>
+    </ul>
+</nav>
+
+<!-- Sidebar -->
+<div id="layoutSidenav">
+    <div id="layoutSidenav_nav">
+        <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+            <div class="sb-sidenav-menu">
+                <div class="nav">
+                    <a class="nav-link" href="index.html">
+                        <div class="sb-nav-link-icon"><i class="fas fa-home"></i></div>
+                        Dashboard
+                    </a>
+                    <a class="nav-link" href="absen_guru.html">
+                        <div class="sb-nav-link-icon"><i class="fas fa-chalkboard-teacher"></i></div>
+                        Absensi Guru
+                    </a>
+                    <a class="nav-link" href="absensi-siswa.html">
+                        <div class="sb-nav-link-icon"><i class="fas fa-user-graduate"></i></div>
+                        Absensi Siswa
+                    </a>
+                    <a class="nav-link" href="jadwal.html">
+                        <div class="sb-nav-link-icon"><i class="fas fa-calendar-alt"></i></div>
+                        Jadwal
+                    </a>
+                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseMapel" aria-expanded="false" aria-controls="collapseMapel">
+                        <div class="sb-nav-link-icon"><i class="fas fa-book"></i></div>
+                        <span class="me-auto">Nilai</span>
+                        <i class="fas fa-angle-down ms-1"></i>
+                    </a>
+                    <div class="collapse" id="collapseMapel" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                        <nav class="sb-sidenav-menu-nested nav">
+                            <a class="nav-link" href="mapel_aljabar.html">Aljabar</a>
+                            <a class="nav-link" href="mapel_matematika.html">Matematika</a>
+                            <a class="nav-link" href="mapel_statistika.html">Statistika</a>
+                        </nav>
+                    </div>
+                    <a class="nav-link" href="raport.html">
+                        <div class="sb-nav-link-icon"><i class="fas fa-file-alt"></i></div>
+                        Raport
+                    </a>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+    <!-- Main Content -->
+    <div id="layoutSidenav_content">
+        <main>
+            <div class="container mt-4">
+                <h2 class="mb-4">Halaman Input Nilai</h2>
+                <div class="form-section">
+                    <div class="row g-3">
+                        <div class="col-md-4">
+                            <label class="form-label">Mata Pelajaran</label>
+                            <input type="text" class="form-control" value="Statistika" readonly />
+                        </div>
+                        <div class="col-md-4">
+                            <label for="kelas" class="form-label">Pilih Kelas</label>
+                            <select id="kelas" class="form-select">
+                                <option selected disabled>-- Pilih Kelas --</option>
+                                <option value="10">10 RPL 1</option>
+                                <option value="11">11 RPL 1</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="jenisNilai" class="form-label">Pilih Jenis Nilai</label>
+                            <select id="jenisNilai" class="form-select" onchange="tampilkanTabel()">
+                                <option selected disabled>-- Pilih Jenis Nilai --</option>
+                                <option value="tugas">Tugas</option>
+                                <option value="uts">UTS</option>
+                                <option value="uas">UAS</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="mt-4" id="tabelNilai" style="display: none;">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Nama Siswa</th>
+                                    <th>Nilai</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <script>
+                                    const siswaInput = ["Andi", "Budi", "Citra", "Dewi", "Eka", "Farhan", "Gita", "Hendra", "Indah", "Joko", "Kiki", "Lina", "Mira", "Nanda", "Oscar"];
+                                    siswaInput.forEach(nama => {
+                                        document.write(`
+                                            <tr>
+                                                <td>${nama}</td>
+                                                <td><input type="number" class="form-control" /></td>
+                                            </tr>
+                                        `);
+                                    });
+                                </script>
+                            </tbody>
+                        </table>
+                        <button class="btn btn-primary">Simpan Nilai</button>
+                    </div>
+                </div>
+
+                <!-- TABEL NILAI TERSIMPAN -->
+                <div class="mt-5">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h4 class="mb-0">Data Nilai Tersimpan</h4>
+                        <div class="form-inline">
+                            <select class="form-select" id="filterSemester" style="width: 200px;">
+                                <option selected>Semester 1</option>
+                                <option>Semester 2</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>No</th>
+                                    <th>Nama</th>
+                                    <th>Tugas</th>
+                                    <th>UTS</th>
+                                    <th>UAS</th>
+                                    <th>Rata-rata</th>
+                                    <th>Konversi</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <script>
+                                    const siswa = [
+                                        {nama: "Andi", tugas: 85, uts: 80, uas: 90},
+                                        {nama: "Budi", tugas: 75, uts: 70, uas: 78},
+                                        {nama: "Citra", tugas: 90, uts: 88, uas: 92},
+                                        {nama: "Dewi", tugas: 68, uts: 60, uas: 70},
+                                        {nama: "Eka", tugas: 95, uts: 98, uas: 94},
+                                        {nama: "Farhan", tugas: 60, uts: 65, uas: 58},
+                                        {nama: "Gita", tugas: 88, uts: 85, uas: 87},
+                                        {nama: "Hendra", tugas: 73, uts: 78, uas: 75},
+                                        {nama: "Indah", tugas: 92, uts: 90, uas: 93},
+                                        {nama: "Joko", tugas: 70, uts: 68, uas: 72},
+                                        {nama: "Kiki", tugas: 85, uts: 82, uas: 84},
+                                        {nama: "Lina", tugas: 77, uts: 80, uas: 79},
+                                        {nama: "Mira", tugas: 91, uts: 89, uas: 90},
+                                        {nama: "Nanda", tugas: 66, uts: 64, uas: 70},
+                                        {nama: "Oscar", tugas: 80, uts: 78, uas: 82}
+                                    ];
+
+                                    function getKonversi(nilai) {
+                                        if (nilai >= 85) return "A";
+                                        if (nilai >= 75) return "B";
+                                        if (nilai >= 65) return "C";
+                                        return "D";
+                                    }
+
+                                    siswa.forEach((s, i) => {
+                                        const rata2 = ((s.tugas + s.uts + s.uas) / 3).toFixed(2);
+                                        const huruf = getKonversi(rata2);
+                                        document.write(`
+                                            <tr>
+                                                <td>${i + 1}</td>
+                                                <td>${s.nama}</td>
+                                                <td>${s.tugas}</td>
+                                                <td>${s.uts}</td>
+                                                <td>${s.uas}</td>
+                                                <td>${rata2}</td>
+                                                <td>${huruf}</td>
+                                                <td>
+                                                    <button class="btn btn-sm btn-warning">Edit</button>
+                                                    <button class="btn btn-sm btn-danger">Hapus</button>
+                                                </td>
+                                            </tr>
+                                        `);
+                                    });
+                                </script>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+</div>
+
+<!-- Scripts -->
+<script>
+    function tampilkanTabel() {
+        const kelas = document.getElementById('kelas').value;
+        const jenisNilai = document.getElementById('jenisNilai').value;
+        const tabel = document.getElementById('tabelNilai');
+        if (kelas && jenisNilai) {
+            tabel.style.display = 'block';
+        } else {
+            tabel.style.display = 'none';
+        }
+    }
+
+    window.addEventListener("load", function () {
+        const preloader = document.getElementById("preloader");
+        if (preloader) preloader.style.display = "none";
+    });
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

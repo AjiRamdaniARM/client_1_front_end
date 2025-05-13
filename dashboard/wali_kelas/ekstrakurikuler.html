@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Dashboard - SB Admin</title>
+    <link rel="stylesheet" href="../css/loading.css">
+    <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
+    <link href="css/styles.css" rel="stylesheet" />
+    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .card {
+            margin-top: 20px;
+            border: 1px solid #007bff;
+        }
+        .card-header {
+            background-color: #007bff;
+            color: white;
+        }
+        .form-label {
+            font-weight: bold;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+        .table th {
+            background-color: #007bff;
+            color: white;
+        }
+        .modal-header {
+            background-color: #007bff;
+            color: white;
+        }
+        .btn-add {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 600;
+        }
+        .btn-add i {
+            font-size: 1rem;
+        }
+        .mt-neg-2 {
+            margin-top: -20px;
+        }
+    </style>
+</head>
+<body class="sb-nav-fixed">
+    <!-- Loading Screen -->
+    <div id="preloader">
+        <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+        <a class="navbar-brand ps-3" href="index.html">Wali Kelas</a>
+        <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button>
+        <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+        </form>
+        <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                    <li><a class="dropdown-item" href="#">Settings</a></li>
+                    <li><a class="dropdown-item" href="#">Activity Log</a></li>
+                    <li><hr class="dropdown-divider" /></li>
+                    <li><a class="dropdown-item" href="#">Logout</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+
+    <div id="layoutSidenav">
+        <div id="layoutSidenav_nav">
+            <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+                <div class="sb-sidenav-menu">
+                    <div class="nav">
+                        <a class="nav-link" href="index.html">
+                            <div class="sb-nav-link-icon"><i class="fas fa-chart-line"></i></div>
+                            Dashboard
+                        </a>
+                        <a class="nav-link" href="absensi.html">
+                            <div class="sb-nav-link-icon"><i class="fas fa-user-check"></i></div>
+                            Absensi
+                        </a>
+                        <a class="nav-link" href="catatan-raport.html">
+                            <div class="sb-nav-link-icon"><i class="fas fa-book"></i></div>
+                            Catatan Rapot
+                        </a>
+                        <a class="nav-link" href="input-nilai.html">
+                            <div class="sb-nav-link-icon"><i class="fas fa-pen"></i></div>
+                            Nilai
+                        </a>
+                        <a class="nav-link" href="prestasi.html">
+                            <div class="sb-nav-link-icon"><i class="fas fa-trophy"></i></div>
+                            Prestasi
+                        </a>
+                        <a class="nav-link" href="ekstrakurikuler.html">
+                            <div class="sb-nav-link-icon"><i class="fas fa-running"></i></div>
+                            Ekstrakurikuler
+                        </a>
+                        <a class="nav-link" href="raport.html">
+                        <div class="sb-nav-link-icon"><i class="fas fa-file-alt"></i></div>Raport
+                        </a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+        <div id="layoutSidenav_content">
+            <main>
+                <div class="container-fluid px-4">
+                    <h1 class="mt-neg-2">Ekstrakurikuler</h1>
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Catat Data Ekstrakurikuler Siswa</h2>
+                        </div>
+                        <div class="card-body">
+                            <form id="extracurricularForm">
+                                <div class="mb-3">
+                                    <label for="studentName" class="form-label">Nama Siswa</label>
+                                    <select class="form-select" id="studentName" required>
+                                        <option value="" disabled selected>Pilih Nama Siswa</option>
+                                        <option value="Andi">Andi</option>
+                                        <option value="Budi">Budi</option>
+                                        <option value="Citra">Citra</option>
+                                        <option value="Dewi">Dewi</option>
+                                        <option value="Dita">Dita</option>
+                                        <option value="Dwi">Dwi</option>
+                                        <option value="Fadil">Fadil</option>
+                                        <option value="Gilang">Gilang</option>
+                                        <option value="Izat">Izat</option>
+                                        <option value="Kiandra">Kiandra</option>
+                                        <option value="Manisa">Manisa</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="extracurricularActivity" class="form-label">Kegiatan Ekstrakurikuler</label>
+                                    <input type="text" class="form-control" id="extracurricularActivity" placeholder="Contoh: Basket, Musik, dll" required />
+                                </div>
+                                <div class="mb-3">
+                                    <label for="notes" class="form-label">Catatan Tambahan</label>
+                                    <textarea class="form-control" id="notes" rows="3" placeholder="Masukkan catatan tambahan di sini"></textarea>
+                                </div>
+                                <button type="button" class="btn btn-primary btn-add" id="addActivity">
+                                    <i class="fas fa-plus"></i> Tambah Kegiatan
+                                </button>
+                            </form>
+                            <hr />
+                            <h3>Daftar Kegiatan Ekstrakurikuler</h3>
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Nama Siswa</th>
+                                        <th scope="col">Kegiatan</th>
+                                        <th scope="col">Catatan</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="activityList">
+                                    <!-- Data kegiatan akan ditambahkan di sini -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('addActivity').addEventListener('click', function () {
+            const studentName = document.getElementById('studentName').value;
+            const extracurricularActivity = document.getElementById('extracurricularActivity').value;
+            const notes = document.getElementById('notes').value;
+
+            if (studentName && extracurricularActivity) {
+                const table = document.getElementById('activityList');
+                const newRow = table.insertRow();
+                newRow.innerHTML = `<td>${studentName}</td><td>${extracurricularActivity}</td><td>${notes}</td>`;
+                document.getElementById('extracurricularActivity').value = '';
+                document.getElementById('notes').value = '';
+            } else {
+                alert('Silakan lengkapi semua field sebelum menambahkan kegiatan.');
+            }
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"></script>
+</body>
+</html>

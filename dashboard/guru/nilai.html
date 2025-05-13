@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Input Nilai - Guru Kelas</title>
+    <link rel="stylesheet" href="../css/loading.css">
+    <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
+    <link href="css/styles.css" rel="stylesheet" />
+    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+</head>
+<style>
+    .pagination-container {
+        margin-top: 20px;
+    }
+    #pagination button {
+        margin-left: 5px;
+        min-width: 40px;
+        transition: background-color 0.2s ease-in-out;
+        cursor: pointer;
+    }
+    #pagination button.active {
+        background-color: #b7bcc4;
+        color: white;
+        border-color: #0d6efd;
+    }
+    .preview-container {
+        margin-top: 20px;
+    }
+</style>
+<body class="sb-nav-fixed">
+    <!-- Loading Screen -->
+    <div id="preloader">
+        <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+        <a class="navbar-brand ps-3" href="index.html">Guru Kelas</a>
+        <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle"><i class="fas fa-bars"></i></button>
+        <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+        </form>
+        <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown"><i class="fas fa-user fa-fw"></i></a>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                    <li><a class="dropdown-item" href="#!">Settings</a></li>
+                    <li><a class="dropdown-item" href="#!">Activity Log</a></li>
+                    <li><hr class="dropdown-divider" /></li>
+                    <li><a class="dropdown-item" href="#!">Logout</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Sidebar Layout -->
+    <div id="layoutSidenav">
+    <div id="layoutSidenav_nav">
+        <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+            <div class="sb-sidenav-menu">
+                <div class="nav">
+                    <a class="nav-link" href="index.html">
+                        <div class="sb-nav-link-icon"><i class="fas fa-home"></i></div>
+                        Dashboard
+                    </a>
+                    <a class="nav-link" href="absen_guru.html">
+                        <div class="sb-nav-link-icon"><i class="fas fa-chalkboard-teacher"></i></div>
+                        Absensi Guru
+                    </a>
+                    <a class="nav-link" href="absensi-siswa.html">
+                        <div class="sb-nav-link-icon"><i class="fas fa-user-graduate"></i></div>
+                        Absensi Siswa
+                    </a>
+                    <a class="nav-link" href="jadwal.html">
+                        <div class="sb-nav-link-icon"><i class="fas fa-calendar-alt"></i></div>
+                        Jadwal
+                    </a>
+                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseMapel" aria-expanded="false" aria-controls="collapseMapel">
+                        <div class="sb-nav-link-icon"><i class="fas fa-book"></i></div>
+                        <span class="me-auto">Nilai</span>
+                        <i class="fas fa-angle-down ms-1"></i>
+                    </a>
+                    <div class="collapse" id="collapseMapel" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                        <nav class="sb-sidenav-menu-nested nav">
+                            <a class="nav-link" href="mapel_aljabar.html">Aljabar</a>
+                            <a class="nav-link" href="mapel_matematika.html">Matematika</a>
+                            <a class="nav-link" href="mapel_statistika.html">Statistika</a>
+                        </nav>
+                    </div>
+                    <a class="nav-link" href="raport.html">
+                        <div class="sb-nav-link-icon"><i class="fas fa-file-alt"></i></div>
+                        Raport
+                    </a>
+                </div>
+            </div>
+        </nav>
+    </div>      
+
+    <!-- Main Content -->
+    <div id="layoutSidenav_content">
+        <main class="container py-4">
+            <h2 class>Input Nilai - Guru Mapel</h2>
+            <div class="card">
+                <div class="card-header">Form Input Nilai</div>
+                <div class="card-body">
+                    <form id="gradeForm">
+                        <div class="mb-3">
+                            <label for="class" class="form-label">Pilih Kelas</label>
+                            <select class="form-select" id="class" required>
+                                <option value="" disabled selected>Pilih Kelas</option>
+                                <option value="Kelas 1">Kelas 1</option>
+                                <option value="Kelas 2">Kelas 2</option>
+                                <option value="Kelas 3">Kelas 3</option>
+                                <option value="Kelas 4">Kelas 4</option>
+                                <option value="Kelas 5">Kelas 5</option>
+                                <option value="Kelas 6">Kelas 6</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="subject" class="form-label">Mata Pelajaran</label>
+                            <select class="form-select" id="subject" required>
+                                <option value="" disabled selected>Pilih Mata Pelajaran</option>
+                                <option value="Matematika">Matematika</option>
+                                <option value="Bahasa Indonesia">Bahasa Indonesia</option>
+                                <option value="IPA">IPA</option>
+                                <option value="IPS">IPS</option>
+                                <option value="Bahasa Inggris">Bahasa Inggris</option>
+                            </select>
+                        </div>
+                        <table class="table table-bordered align-middle">
+                            <thead class="table-secondary">
+                                <tr>
+                                    <th>Nama Siswa</th>
+                                    <th>Nilai Tugas</th>
+                                    <th>Nilai UTS</th>
+                                    <th>Nilai UAS</th>
+                                </tr>
+                            </thead>
+                            <tbody id="studentTableBody">
+                                <!-- Siswa akan ditampilkan di sini -->
+                            </tbody>
+                        </table>
+                        <div class="pagination-container d-flex justify-content-end">
+                            <div id="pagination" class="btn-group"></div>
+                        </div>
+                        <button type="submit" class="btn btn-primary mt-3">Simpan Nilai</button>
+                    </form>
+                </div>
+            </div>
+            <div class="preview-container">
+                <h3>Preview Data</h3>
+                <table class="table table-bordered">
+                    <thead class="table-secondary">
+                        <tr>
+                            <th>Nama Siswa</th>
+                            <th>Nilai Tugas</th>
+                            <th>Nilai UTS</th>
+                            <th>Nilai UAS</th>
+                        </tr>
+                    </thead>
+                    <tbody id="previewTableBody">
+                        <!-- Preview data will be displayed here -->
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+</div>
+
+<!-- Script -->
+<script>
+    const students = [
+        "Andi", "Budi", "Cici", "Dewi", "Eka",
+        "Fajar", "Gita", "Hendra", "Indah", "Joko",
+        "Kiki", "Lina", "Maya", "Nina", "Omar",
+        "Putu", "Rina", "Sari", "Tina", "Udin"
+    ];
+
+    const rowsPerPage = 5;
+    let currentPage = 1;
+    let grades = [];
+
+    function displayStudents(page) {
+        const start = (page - 1) * rowsPerPage;
+        const end = start + rowsPerPage;
+        const paginatedStudents = students.slice(start, end);
+
+        const tbody = document.getElementById('studentTableBody');
+        tbody.innerHTML = '';
+
+        paginatedStudents.forEach((name, index) => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${name}</td>
+                <td><input type="number" class="form-control" placeholder="Tugas" data-index="${start + index}" /></td>
+                <td><input type="number" class="form-control" placeholder="UTS" data-index="${start + index}" /></td>
+                <td><input type="number" class="form-control" placeholder="UAS" data-index="${start + index}" /></td>
+            `;
+            tbody.appendChild(row);
+        });
+
+        updatePagination(page);
+    }
+
+    function updatePagination(pageNow) {
+        const pagination = document.getElementById('pagination');
+        pagination.innerHTML = '';
+        const totalPages = Math.ceil(students.length / rowsPerPage);
+
+        for (let i =  1; i <= totalPages; i++) {
+            const button = document.createElement('button');
+            button.innerText = i;
+            button.className = 'btn btn-outline-primary';
+            button.title = `Halaman ${i}`;
+            if (i === pageNow) {
+                button.classList.add('active');
+            }
+            button.onclick = () => {
+                currentPage = i;
+                displayStudents(currentPage);
+            };
+            pagination.appendChild(button);
+        }
+    }
+
+    document.getElementById('gradeForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+        grades = [];
+        const inputs = document.querySelectorAll('#studentTableBody input');
+        inputs.forEach(input => {
+            const index = input.getAttribute('data-index');
+            if (!grades[index]) {
+                grades[index] = { name: students[index], tugas: '', uts: '', uas: '' };
+            }
+            if (input.placeholder === 'Tugas') {
+                grades[index].tugas = input.value;
+            } else if (input.placeholder === 'UTS') {
+                grades[index].uts = input.value;
+            } else if (input.placeholder === 'UAS') {
+                grades[index].uas = input.value;
+            }
+        });
+        updatePreview();
+        alert('Nilai berhasil disimpan!');
+    });
+
+    function updatePreview() {
+        const previewTableBody = document.getElementById('previewTableBody');
+        previewTableBody.innerHTML = '';
+        grades.forEach(grade => {
+            if (grade) {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${grade.name}</td>
+                    <td>${grade.tugas}</td>
+                    <td>${grade.uts}</td>
+                    <td>${grade.uas}</td>
+                `;
+                previewTableBody.appendChild(row);
+            }
+        });
+    }
+
+    // Init display
+    displayStudents(currentPage);
+</script>
+</body>
+</html>

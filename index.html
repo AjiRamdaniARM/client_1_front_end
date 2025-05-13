@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil Sekolah</title>
+    <link rel="stylesheet" href="css/loading.css">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
+    <!-- AOS CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+  </head>
+  <body>
+    <!-- Loading Screen -->
+    <div id="preloader">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" >
+      <div class="container">
+        <a class="navbar-brand" href="#">
+          <img src="img/logo+tut+wuri+handayani.png" width="50" alt="logo-sekolah">
+          <span class="fw-bold">TutwuriHandayani</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#">Beranda</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/auth/p_akses.html">Masuk</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero bg-primary text-white text-center py-5" data-aos="zoom-in">
+      <div class="container">
+        <h1 class="fw-bold">Selamat Datang di Sekolah Kami</h1>
+        <p class="lead">Mewujudkan Generasi Unggul dan Berkarakter</p>
+      </div>
+    </section>
+
+    <!-- Profil Sekolah -->
+    <section id="profil" class="py-5">
+      <div class="container">
+        <div class="row align-items-center gap-4 gap-lg-0">
+          <div class="col-lg-6" data-aos="fade-right">
+            <img src="img/Sekolah.jpg" alt="Profil Sekolah" class="img-fluid rounded">
+          </div>
+          <div class="col-lg-6" data-aos="fade-left">
+            <h2>Tentang Sekolah Kami</h2>
+            <p>Kami adalah sekolah yang berfokus pada pengembangan potensi siswa dengan mengintegrasikan pendidikan akademik dan karakter. Visi kami adalah mencetak generasi unggul yang siap menghadapi tantangan global.</p>
+            <ul>
+              <li>Fasilitas Modern</li>
+              <li>Guru Berkualitas</li>
+              <li>Kurikulum Inovatif</li>
+              <li>Ekstrakurikuler Menarik</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Visi Misi Sekolah -->
+    <section id="visi-misi" class="bg-light py-5">
+      <div class="container">
+        <h2 class="text-center mb-4" data-aos="fade-up">Visi dan Misi Sekolah</h2>
+        <div class="row">
+          <div class="col-md-6 mb-3" data-aos="fade-up" data-aos-delay="100">
+            <div class="card h-100">
+              <div class="card-body">
+                <h5 class="card-title">Visi</h5>
+                <p class="card-text">Menjadi sekolah unggul yang menghasilkan generasi berkarakter, berprestasi, dan berwawasan global.</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 mb-3" data-aos="fade-up" data-aos-delay="200">
+            <div class="card h-100">
+              <div class="card-body">
+                <h5 class="card-title">Misi</h5>
+                <ul class="card-text">
+                  <li>Menyelenggarakan pendidikan berkualitas berbasis teknologi dan nilai moral.</li>
+                  <li>Mendorong siswa untuk berprestasi di bidang akademik, seni, dan olahraga.</li>
+                  <li>Menumbuhkan jiwa kepemimpinan, kreatifitas, dan kepedulian sosial.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Form Kontak -->
+    <section id="kontak" class="py-5">
+      <div class="container">
+        <h2 class="text-center mb-4" data-aos="fade-up">Hubungi Kami</h2>
+        <div class="row justify-content-center">
+          <div class="col-lg-8">
+            <form data-aos="zoom-in-up">
+              <div class="mb-3">
+                <label for="nama" class="form-label">Nama</label>
+                <input type="text" class="form-control" id="nama" placeholder="Masukkan nama Anda">
+              </div>
+              <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" id="email" placeholder="Masukkan email Anda">
+              </div>
+              <div class="mb-3">
+                <label for="pesan" class="form-label">Pesan</label>
+                <textarea class="form-control" id="pesan" rows="4" placeholder="Tulis pesan Anda"></textarea>
+              </div>
+              <div class="text-center">
+                <button type="submit" class="btn btn-primary">Kirim Pesan</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white text-center py-3" s>
+      <div class="container">
+        <p>&copy; 2025 Nama Sekolah. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq" crossorigin="anonymous"></script>
+    <!-- AOS JS -->
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <script>
+      AOS.init();
+    </script>
+    <script src="js/loading.js"></script>
+  </body>
+</html>

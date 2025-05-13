@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Data Prestasi - SB Admin</title>
+    <link rel="stylesheet" href="../css/loading.css">
+    <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
+    <link href="css/styles.css" rel="stylesheet" />
+    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    <style>
+        .card {
+            margin-top: 20px;
+            border: 1px solid #007bff;
+        }
+
+        .card-header {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .form-label {
+            font-weight: bold;
+        }
+
+        .btn-custom {
+            background-color: #007bff;
+            color: white;
+            border: none;
+        }
+
+        .btn-custom:hover {
+            background-color: #0056b3;
+        }
+
+        td,
+        th {
+            text-align: center;
+            vertical-align: middle !important;
+        }
+    </style>
+</head>
+
+<body class="sb-nav-fixed">
+    <div id="preloader">
+        <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+
+    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+        <a class="navbar-brand ps-3" href="index.html">Wali Kelas</a>
+        <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle">
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="ms-auto d-flex align-items-center">
+            <ul class="navbar-nav">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-user fa-fw"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="#">Settings</a></li>
+                        <li><hr class="dropdown-divider" /></li>
+                        <li><a class="dropdown-item" href="#">Logout</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div id="layoutSidenav">
+        <div id="layoutSidenav_nav">
+            <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+                <div class="sb-sidenav-menu">
+                    <div class="nav">
+                        <a class="nav-link" href="index.html">
+                            <div class="sb-nav-link-icon"><i class="fas fa-chart-line"></i></div>
+                            Dashboard
+                        </a>
+                        <a class="nav-link" href="absensi.html">
+                            <div class="sb-nav-link-icon"><i class="fas fa-user-check"></i></div>
+                            Absensi
+                        </a>
+                        <a class="nav-link" href="catatan-raport.html">
+                            <div class="sb-nav-link-icon"><i class="fas fa-book"></i></div>
+                            Catatan Rapot
+                        </a>
+                        <a class="nav-link" href="input-nilai.html">
+                            <div class="sb-nav-link-icon"><i class="fas fa-pen"></i></div>
+                            Nilai
+                        </a>
+                        <a class="nav-link" href="prestasi.html">
+                            <div class="sb-nav-link-icon"><i class="fas fa-trophy"></i></div>
+                            Prestasi
+                        </a>
+                        <a class="nav-link" href="ekstrakurikuler.html">
+                            <div class="sb-nav-link-icon"><i class="fas fa-running"></i></div>
+                            Ekstrakurikuler
+                        </a>
+                        <a class="nav-link" href="raport.html">
+                        <div class="sb-nav-link-icon"><i class="fas fa-file-alt"></i></div>Raport
+                        </a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+
+        <div id="layoutSidenav_content">
+            <main class="container my-0">
+                <h2 class="mb-4">Rekapan Nilai Siswa</h2>
+
+                <div class="card mb-4">
+                    <div class="card-header">
+                        Filter Data
+                    </div>
+                    <div class="card-body">
+                        <form id="filterForm" class="row g-3">
+                            <div class="col-md-6">
+                                <label for="semester" class="form-label">Semester</label>
+                                <select id="semester" class="form-select" required>
+                                    <option value="" selected disabled>Pilih Semester</option>
+                                    <option value="1">Semester 1</option>
+                                    <option value="2">Semester 2</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="tahun" class="form-label">Tahun Ajaran</label>
+                                <select id="tahun" class="form-select" required>
+                                    <option value="" selected disabled>Pilih Tahun Ajaran</option>
+                                    <option value="2022/2023">2022/2023</option>
+                                    <option value="2023/2024">2023/2024</option>
+                                    <option value="2024/2025">2024/2025</option>
+                                </select>
+                            </div>
+                            <div class="col-12 text-end">
+                                <button type="submit" class="btn btn-custom px-4">
+                                    <i class="fas fa-search"></i> Tampilkan Data
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        Tabel Nilai Siswa
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-bordered table-striped">
+                            <thead class="table-primary">
+                                <tr>
+                                    <th>No</th>
+                                    <th>Nama Siswa</th>
+                                    <th>Nilai Tugas</th>
+                                    <th>Nilai UTS</th>
+                                    <th>Nilai UAS</th>
+                                    <th>Rata-rata</th>
+                                    <th>Konversi</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody id="nilaiTable">
+                                <!-- Data ditampilkan via JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script>
+        const siswaList = [
+            "Andi Saputra", "Budi Hartono", "Citra Maharani", "Dewi Lestari", "Eka Pratama",
+            "Fajar Nugroho", "Gita Permata", "Hana Putri", "Iqbal Ramadhan", "Joko Santoso",
+            "Kartika Sari", "Lia Fitriani", "Mahesa Putra", "Nina Safitri", "Oscar Wijaya",
+            "Putri Aulia", "Qory Rahma", "Raka Firmansyah", "Sinta Ayu", "Taufik Hidayat",
+            "Umi Kaltsum", "Vina Marlina", "Wahyu Nugraha", "Xena Widya", "Yusuf Maulana",
+            "Zahra Amelia", "Arif Hidayat", "Bella Cahyani", "Dian Permana", "Farah Nabila"
+        ];
+
+        const generateNilai = () => {
+            const data = [];
+            for (let i = 0; i < siswaList.length; i++) {
+                for (const semester of [1, 2]) {
+                    for (const tahun of ["2022/2023", "2023/2024", "2024/2025"]) {
+                        data.push({
+                            nama: siswaList[i],
+                            tugas: Math.floor(Math.random() * 21) + 75,
+                            uts: Math.floor(Math.random() * 21) + 75,
+                            uas: Math.floor(Math.random() * 21) + 75,
+                            semester,
+                            tahun
+                        });
+                    }
+                }
+            }
+            return data;
+        };
+
+        const semuaNilai = generateNilai();
+
+        const konversiNilai = (nilai) => {
+            if (nilai >= 90) return 'A';
+            else if (nilai >= 80) return 'B';
+            else if (nilai >= 70) return 'C';
+            else if (nilai >= 60) return 'D';
+            else return 'F';
+        };
+
+        document.getElementById('filterForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const semester = document.getElementById('semester').value;
+            const tahun = document.getElementById('tahun').value;
+            const hasil = semuaNilai.filter(n =>
+                n.semester == semester && n.tahun == tahun
+            );
+
+            const tbody = document.getElementById('nilaiTable');
+            tbody.innerHTML = '';
+
+            hasil.forEach((siswa, index) => {
+                const rata = ((siswa.tugas + siswa.uts + siswa.uas) / 3).toFixed(2);
+                const huruf = konversiNilai(rata);
+                tbody.innerHTML += `
+                    <tr>
+                        <td>${index + 1}</td>
+                        <td>${siswa.nama}</td>
+                        <td>${siswa.tugas}</td>
+                        <td>${siswa.uts}</td>
+                        <td>${siswa.uas}</td>
+                        <td>${rata}</td>
+                        <td>${huruf}</td>
+                        <td><i class="fas fa-pencil-alt text-primary"></i></td>
+                    </tr>
+                `;
+            });
+        });
+    </script>
+</body>
+
+</html>

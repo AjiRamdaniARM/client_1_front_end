@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Dashboard - SB Admin</title>
+    <link rel="stylesheet" href="../css/loading.css">
+    <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
+    <link href="css/styles.css" rel="stylesheet" />
+    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+</head>
+<body class="sb-nav-fixed">
+    <!-- Loading Screen -->
+    <div id="preloader">
+        <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+
+    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+        <a class="navbar-brand ps-3" href="index.html">Wali Kelas</a>
+        <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button>
+        <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+        </form>
+        <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="fas fa-user fa-fw"></i>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                    <li><a class="dropdown-item" href="#">Settings</a></li>
+                    <li><a class="dropdown-item" href="#">Activity Log</a></li>
+                    <li><hr class="dropdown-divider" /></li>
+                    <li><a class="dropdown-item" href="#">Logout</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+
+    <div id="layoutSidenav">
+        <div id="layoutSidenav_nav">
+            <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+                <div class="sb-sidenav-menu">
+                    <div class="nav">
+                        <a class="nav-link" href="index.html">
+                            <div class="sb-nav-link-icon"><i class="fas fa-chart-line"></i></div>
+                            Dashboard
+                        </a>
+                        <a class="nav-link" href="absensi.html">
+                            <div class="sb-nav-link-icon"><i class="fas fa-user-check"></i></div>
+                            Absensi
+                        </a>
+                        <a class="nav-link" href="catatan-raport.html">
+                            <div class="sb-nav-link-icon"><i class="fas fa-book"></i></div>
+                            Catatan Rapot
+                        </a>
+                        <a class="nav-link" href="input-nilai.html">
+                            <div class="sb-nav-link-icon"><i class="fas fa-pen"></i></div>
+                            Nilai
+                        </a>
+                        <a class="nav-link" href="prestasi.html">
+                            <div class="sb-nav-link-icon"><i class="fas fa-trophy"></i></div>
+                            Prestasi
+                        </a>
+                        <a class="nav-link" href="ekstrakurikuler.html">
+                            <div class="sb-nav-link-icon"><i class="fas fa-running"></i></div>
+                            Ekstrakurikuler
+                        </a>
+                        <a class="nav-link" href="raport.html">
+                        <div class="sb-nav-link-icon"><i class="fas fa-file-alt"></i></div>Raport
+                        </a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+
+        <div id="layoutSidenav_content">
+            <div class="container-fluid px-4">
+                <h1 class="mt-0">Dashboard</h1>
+
+                <div class="row">
+                    <div class="col-xl-3 col-md-6">
+                        <div class="card bg-primary text-white mb-4">
+                            <div class="card-body">Nama Kelas</div>
+                            <div class="card-footer d-flex align-items-center justify-content-between">
+                                <span class="metric">10RPL1</span>
+                                <div class="small text-white"><i class="fas fa-users"></i></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-md-6">
+                        <div class="card bg-warning text-white mb-4">
+                            <div class="card-body">Jumlah Siswa</div>
+                            <div class="card-footer d-flex align-items-center justify-content-between">
+                                <span class="metric">40</span>
+                                <div class="small text-white"><i class="fas fa-basketball-ball"></i></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-md-6">
+                        <div class="card bg-success text-white mb-4">
+                            <div class="card-body">Prestasi Siswa</div>
+                            <div class="card-footer d-flex align-items-center justify-content-between">
+                                <span class="metric">25</span>
+                                <div class="small text-white"><i class="fas fa-trophy"></i></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-md-6">
+                        <div class="card bg-danger text-white mb-4">
+                            <div class="card-body">Kondisi Kesehatan</div>
+                            <div class="card-footer d-flex align-items-center justify-content-between">
+                                <span class="metric">5</span>
+                                <div class="small text-white"><i class="fas fa-heartbeat"></i></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Aktivitas Terbaru -->
+                <div class="row mt-4">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-header"><h2>Aktivitas Terbaru</h2></div>
+                            <div class="card-body">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Nama Siswa</th>
+                                            <th>Kegiatan</th>
+                                            <th>Tanggal</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr><td>Andi</td><td>Basket</td><td>01/10/2023</td></tr>
+                                        <tr><td>Budi</td><td>Musik</td><td>02/10/2023</td></tr>
+                                        <tr><td>Citra</td><td>Drama</td><td>03/10/2023</td></tr>
+                                        <tr><td>Dewi</td><td>Volleyball</td><td>04/10/2023</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Informasi Umum Kelas (Tabel) -->
+                <div class="row mt-4">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-header"><h2>Informasi Umum Kelas</h2></div>
+                            <div class="card-body">
+                                <table class="table table-bordered">
+                                    <tbody>
+                                        <tr>
+                                            <th>Wali Kelas</th>
+                                            <td>Bu Siti Aminah</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Jumlah Siswa Laki-laki</th>
+                                            <td>22</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Jumlah Siswa Perempuan</th>
+                                            <td>18</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Rata-rata Nilai Akhir Semester</th>
+                                            <td>87.5</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Catatan Umum</th>
+                                            <td>Kelas ini sangat aktif dalam kegiatan ekstrakurikuler dan lomba-lomba sekolah.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Siswa Perlu Perhatian -->
+                <div class="row mt-4 mb-5">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-header"><h2>Siswa Perlu Perhatian (Nilai di Bawah KKM)</h2></div>
+                            <div class="card-body">
+                                <table class="table table-warning table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Nama Siswa</th>
+                                            <th>Mata Pelajaran</th>
+                                            <th>Nilai</th>
+                                            <th>KKM</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr><td>Fajar</td><td>Matematika</td><td>65</td><td>75</td></tr>
+                                        <tr><td>Lina</td><td>Bahasa Inggris</td><td>68</td><td>75</td></tr>
+                                        <tr><td>Rudi</td><td>Fisika</td><td>60</td><td>75</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"></script>
+</body>
+</html>

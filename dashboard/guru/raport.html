@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+  <title>Input Nilai - Guru Kelas</title>
+  <link rel="stylesheet" href="../css/loading.css">
+  <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
+  <link href="css/styles.css" rel="stylesheet" />
+  <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+  <style>
+    .pagination-container {
+      margin-top: 20px;
+    }
+    #pagination button {
+      margin-left: 5px;
+      min-width: 40px;
+      transition: background-color 0.2s ease-in-out;
+      cursor: pointer;
+    }
+    #pagination button.active {
+      background-color: #b7bcc4;
+      color: white;
+      border-color: #0d6efd;
+    }
+    .preview-container {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body class="sb-nav-fixed">
+
+  <!-- Loading Screen -->
+  <div id="preloader">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+
+  <!-- Navbar -->
+  <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+        <a class="navbar-brand ps-3" href="index.html">Guru Kelas</a>
+        <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle"><i class="fas fa-bars"></i></button>
+        <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+        </form>
+        <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown"><i class="fas fa-user fa-fw"></i></a>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                    <li><a class="dropdown-item" href="#!">Settings</a></li>
+                    <li><a class="dropdown-item" href="#!">Activity Log</a></li>
+                    <li><hr class="dropdown-divider" /></li>
+                    <li><a class="dropdown-item" href="#!">Logout</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+
+  <!-- Sidebar -->
+  <div id="layoutSidenav">
+    <div id="layoutSidenav_nav">
+        <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+            <div class="sb-sidenav-menu">
+                <div class="nav">
+                    <a class="nav-link" href="index.html">
+                        <div class="sb-nav-link-icon"><i class="fas fa-home"></i></div>
+                        Dashboard
+                    </a>
+                    <a class="nav-link" href="absen_guru.html">
+                        <div class="sb-nav-link-icon"><i class="fas fa-chalkboard-teacher"></i></div>
+                        Absensi Guru
+                    </a>
+                    <a class="nav-link" href="absensi-siswa.html">
+                        <div class="sb-nav-link-icon"><i class="fas fa-user-graduate"></i></div>
+                        Absensi Siswa
+                    </a>
+                    <a class="nav-link" href="jadwal.html">
+                        <div class="sb-nav-link-icon"><i class="fas fa-calendar-alt"></i></div>
+                        Jadwal
+                    </a>
+                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseMapel" aria-expanded="false" aria-controls="collapseMapel">
+                        <div class="sb-nav-link-icon"><i class="fas fa-book"></i></div>
+                        <span class="me-auto">Nilai</span>
+                        <i class="fas fa-angle-down ms-1"></i>
+                    </a>
+                    <div class="collapse" id="collapseMapel" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                        <nav class="sb-sidenav-menu-nested nav">
+                            <a class="nav-link" href="mapel_aljabar.html">Aljabar</a>
+                            <a class="nav-link" href="mapel_matematika.html">Matematika</a>
+                            <a class="nav-link" href="mapel_statistika.html">Statistika</a>
+                        </nav>
+                    </div>
+                    <a class="nav-link" href="raport.html">
+                        <div class="sb-nav-link-icon"><i class="fas fa-file-alt"></i></div>
+                        Raport
+                    </a>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+    <!-- Main Content -->
+    <div id="layoutSidenav_content">
+      <main class="container-fluid px-4 mt-4">
+
+        <!-- Filter -->
+        <div class="card p-4">
+          <form class="row g-3">
+            <div class="col-md-3">
+              <label class="form-label">Tahun Ajaran</label>
+              <select class="form-select"><option selected>2024/2025</option></select>
+            </div>
+            <div class="col-md-3">
+              <label class="form-label">Semester</label>
+              <select class="form-select"><option selected>Genap</option></select>
+            </div>
+            <div class="col-md-3">
+              <label class="form-label">Kelas</label>
+              <select class="form-select"><option selected>XI RPL 1</option></select>
+            </div>
+            <div class="col-md-3">
+              <label class="form-label">Nama Siswa</label>
+              <select class="form-select" id="namaSiswa">
+                <option selected>Ahmad Fikri</option>
+                <option>Budi Santoso</option>
+              </select>
+            </div>
+          </form>
+        </div>
+
+        <!-- Identitas -->
+        <div class="card p-4 mt-4">
+          <h5>Nama Siswa: <strong id="namaSiswaDisplay">Ahmad Fikri</strong></h5>
+          <p>NISN: <span id="nisnDisplay">1234567890</span></p>
+        </div>
+
+        <!-- Nilai Akademik -->
+        <div class="card mt-4">
+          <div class="card-header"><h5>Nilai Akademik</h5></div>
+          <div class="card-body table-responsive">
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th>Mata Pelajaran</th><th>Tugas</th><th>UTS</th><th>UAS</th><th>Rata-rata</th><th>Huruf</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>Aljabar</td><td>78</td><td>82</td><td>80</td><td>80</td><td class="text-success">B</td></tr>
+                <tr><td>Matematika</td><td>85</td><td>80</td><td>90</td><td>85</td><td class="text-success">A</td></tr>
+                <tr><td>Statistika</td><td>70</td><td>89</td><td>80</td><td>80</td><td class="text-success">B</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Rekap Absensi -->
+        <div class="card mt-4">
+          <div class="card-header"><h5>Rekap Absensi</h5></div>
+          <div class="card-body table-responsive">
+            <table class="table table-bordered">
+              <thead><tr><th>Keterangan</th><th>Jumlah Hari</th></tr></thead>
+              <tbody>
+                <tr><td>Hadir</td><td>120</td></tr>
+                <tr><td>Izin</td><td>5</td></tr>
+                <tr><td>Sakit</td><td>3</td></tr>
+                <tr><td>Alpa</td><td>2</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Prestasi -->
+        <div class="card mt-4">
+          <div class="card-header"><h5>Prestasi</h5></div>
+          <div class="card-body">
+            <ul>
+              <li>Juara 1 Lomba Cerdas Cermat</li>
+              <li>Peserta Aktif Olimpiade Informatika</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Catatan Wali Kelas -->
+        <div class="card mt-4">
+          <div class="card-header"><h5>Catatan Wali Kelas</h5></div>
+          <div class="card-body">
+            <p>Ahmad menunjukkan perkembangan yang baik di semester ini. Disarankan untuk lebih aktif dalam diskusi kelas.</p>
+          </div>
+        </div>
+
+        <!-- Kondisi Kesehatan -->
+        <div class="card mt-4">
+          <div class="card-header"><h5>Kondisi Kesehatan</h5></div>
+          <div class="card-body">
+            <p>Tidak ada masalah kesehatan yang signifikan. Pemeriksaan berkala dilakukan dua kali semester ini.</p>
+          </div>
+        </div>
+
+        <!-- Capaian Kompetensi -->
+        <div class="card mt-4">
+          <div class="card-header"><h5>Capaian Kompetensi</h5></div>
+          <div class="card-body">
+            <ul>
+              <li>Memahami konsep dasar pemrograman OOP</li>
+              <li>Mampu membuat aplikasi CRUD sederhana</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Ekstrakurikuler -->
+        <div class="card mt-4">
+          <div class="card-header"><h5>Ekstrakurikuler</h5></div>
+          <div class="card-body">
+            <ul>
+              <li>Robotika: Sangat aktif</li>
+              <li>Futsal: Cukup aktif</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Tombol Cetak -->
+        <div class="d-flex gap-2 mt-3 mb-5">
+          <button class="btn btn-outline-primary"><i class="fas fa-print me-2"></i>Cetak Raport Bayangan</button>
+          <button class="btn btn-primary"><i class="fas fa-file-pdf me-2"></i>Cetak Raport Akhir</button>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    const siswaSelect = document.getElementById("namaSiswa");
+    const displayNama = document.getElementById("namaSiswaDisplay");
+    const displayNISN = document.getElementById("nisnDisplay");
+
+    siswaSelect.addEventListener("change", function () {
+      const selected = this.value;
+      displayNama.textContent = selected;
+
+      const nisnMap = {
+        "Ahmad Fikri": "1234567890",
+        "Budi Santoso": "1234567891"
+      };
+
+      displayNISN.textContent = nisnMap[selected] || "N/A";
+    });
+
+    window.addEventListener('load', function () {
+      document.getElementById('preloader').style.display = 'none';
+    });
+  </script>
+</body>
+</html>
