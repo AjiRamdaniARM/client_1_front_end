@@ -83,56 +83,131 @@
             </div>
             <div id="layoutSidenav_content">
                 <main>
-                    <div class="container-fluid px-4">
-                        <h1 class="mt-4">Dashboard</h1>
-                        <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item active">Dashboard</li>
-                        </ol>
-                        <div class="row">
-                    <div class="col-xl-3 col-md-6">
-                        <div class="card bg-primary text-white mb-4">
-                            <div class="card-body">Jumlah Siswa: 350</div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-md-6">
-                        <div class="card bg-success text-white mb-4">
-                            <div class="card-body">Jumlah Guru: 42</div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-md-6">
-                        <div class="card bg-warning text-white mb-4">
-                            <div class="card-body">Rata-rata Nilai: 84</div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-md-6">
-                        <div class="card bg-danger text-white mb-4">
-                            <div class="card-body">Kehadiran Hari Ini: 96%</div>
-                        </div>
-                    </div>
-                </div>
-                        <div class="row">
-                            <div class="col-xl-6">
-                                <div class="card mb-4">
-                                    <div class="card-header">
-                                        <i class="fas fa-chart-area me-1"></i>
-                                        Area Chart Example
-                                    </div>
-                                    <div class="card-body"><canvas id="myAreaChart" width="100%" height="40"></canvas></div>
-                                </div>
-                            </div>
-                            <div class="col-xl-6">
-                                <div class="card mb-4">
-                                    <div class="card-header">
-                                        <i class="fas fa-chart-bar me-1"></i>
-                                        Bar Chart Example
-                                    </div>
-                                    <div class="card-body"><canvas id="myBarChart" width="100%" height="40"></canvas></div>
-                                </div>
-                            </div>
-                        </div>
-                       
-                    </div>
-                </main>
+  <div class="container-fluid px-4">
+    <h1 class="mt-4">Daftar Siswa dan Guru</h1>
+    <ol class="breadcrumb mb-4">
+      <li class="breadcrumb-item active">Dashboard / Daftar Siswa & Guru</li>
+    </ol>
+
+    <div class="row">
+      <!-- Daftar Siswa -->
+      <div class="col-xl-6 col-md-12">
+        <div class="card mb-4">
+          <div class="card-header d-flex justify-content-between align-items-center">
+            <div>
+              <i class="fas fa-users me-1"></i> Daftar Siswa
+            </div>
+            <!-- Filter Kelas -->
+            <div>
+              <select id="filterKelas" class="form-select form-select-sm">
+                <option value="all">Semua Kelas</option>
+                <option value="10A">Kelas 10 A</option>
+                <option value="10B">Kelas 10 B</option>
+                <option value="11A">Kelas 11 A</option>
+                <!-- Tambahkan sesuai kelas -->
+              </select>
+            </div>
+          </div>
+          <div class="card-body">
+            <table class="table table-bordered table-hover" id="dataSiswaTable">
+              <thead>
+                <tr>
+                  <th>No</th>
+                  <th>Nama Siswa</th>
+                  <th>Kelas</th>
+                  <th>Alamat</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr data-kelas="10A">
+                  <td>1</td>
+                  <td>Rina Sari</td>
+                  <td>10 A</td>
+                  <td>Jl. Merdeka No. 10</td>
+                  <td>
+                    <button class="btn btn-info btn-sm">Lihat</button>
+                  </td>
+                </tr>
+                <tr data-kelas="10B">
+                  <td>2</td>
+                  <td>Andi Joko</td>
+                  <td>10 B</td>
+                  <td>Jl. Raya No. 5</td>
+                  <td>
+                    <button class="btn btn-info btn-sm">Lihat</button>
+                  </td>
+                </tr>
+                <tr data-kelas="11A">
+                  <td>3</td>
+                  <td>Sinta Dewi</td>
+                  <td>11 A</td>
+                  <td>Jl. Taman Siswa</td>
+                  <td>
+                    <button class="btn btn-info btn-sm">Lihat</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Daftar Guru -->
+      <div class="col-xl-6 col-md-12">
+        <div class="card mb-4">
+          <div class="card-header">
+            <i class="fas fa-chalkboard-teacher me-1"></i> Daftar Guru
+          </div>
+          <div class="card-body">
+            <table class="table table-bordered table-hover" id="dataGuruTable">
+              <thead>
+                <tr>
+                  <th>No</th>
+                  <th>Nama Guru</th>
+                  <th>Mapel</th>
+                  <th>Alamat</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>Dr. Budi Santoso</td>
+                  <td>Matematika</td>
+                  <td>Jl. Pendidikan No. 15</td>
+                  <td><button class="btn btn-info btn-sm">Lihat</button></td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td>Indah Wulansari</td>
+                  <td>Bahasa Inggris</td>
+                  <td>Jl. Raya No. 7</td>
+                  <td><button class="btn btn-info btn-sm">Lihat</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script>
+  document.getElementById('filterKelas').addEventListener('change', function () {
+    const selected = this.value;
+    const rows = document.querySelectorAll('#dataSiswaTable tbody tr');
+    rows.forEach(row => {
+      if (selected === 'all' || row.getAttribute('data-kelas') === selected) {
+        row.style.display = '';
+      } else {
+        row.style.display = 'none';
+      }
+    });
+  });
+</script>
+
                 <footer class="py-4 bg-light mt-auto">
                     <div class="container-fluid px-4">
                         <div class="d-flex align-items-center justify-content-between small">

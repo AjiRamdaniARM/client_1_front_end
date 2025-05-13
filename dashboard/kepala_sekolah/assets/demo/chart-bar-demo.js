@@ -1,46 +1,60 @@
-// Set new default font family and font color to mimic Bootstrap's default styling
-Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
+
+// Set default font & color sesuai Bootstrap
+Chart.defaults.global.defaultFontFamily = '-apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif';
 Chart.defaults.global.defaultFontColor = '#292b2c';
 
-// Bar Chart Example
+// Bar Chart
 var ctx = document.getElementById("myBarChart");
-var myLineChart = new Chart(ctx, {
+var myBarChart = new Chart(ctx, {
   type: 'bar',
   data: {
-    labels: ["January", "February", "March", "April", "May", "June"],
+    labels: ["Siswa", "Guru", "Rata-rata Nilai", "Rata-rata Kehadiran"],
     datasets: [{
-      label: "Revenue",
-      backgroundColor: "rgba(2,117,216,1)",
-      borderColor: "rgba(2,117,216,1)",
-      data: [4215, 5312, 6251, 7841, 9821, 14984],
+      label: "Jumlah",
+      backgroundColor: ["#007bff", "#ffc107", "#28a745", "#17a2b8"],
+      borderColor: ["#007bff", "#ffc107", "#28a745", "#17a2b8"],
+      data: [350, 42, 84, 92]
     }],
   },
   options: {
     scales: {
       xAxes: [{
-        time: {
-          unit: 'month'
-        },
         gridLines: {
           display: false
         },
         ticks: {
-          maxTicksLimit: 6
+          maxTicksLimit: 4
         }
       }],
       yAxes: [{
         ticks: {
           min: 0,
-          max: 15000,
-          maxTicksLimit: 5
+          max: 400,
+          stepSize: 50
         },
         gridLines: {
           display: true
         }
-      }],
+      }]
     },
     legend: {
       display: false
+    },
+    title: {
+      display: true,
+      text: 'Data Siswa, Guru, Nilai & Kehadiran (2025)'
+    },
+    tooltips: {
+      callbacks: {
+        label: function(tooltipItem, data) {
+          let label = data.labels[tooltipItem.index];
+          let value = tooltipItem.yLabel;
+          if (label.includes('Nilai') || label.includes('Kehadiran')) {
+            return label + ': ' + value + '%';
+          }
+          return label + ': ' + value;
+        }
+      }
     }
   }
 });
